@@ -1,12 +1,7 @@
 #include <iostream>
 #include <GL/glew.h> 
 #include <GLFW/glfw3.h>
-#include "Anvil.h"
-
-AnvilObject holamundo;
-AnvilObject holamundo2;
-GLFWwindow* Window;
-Collision2D colision;
+#include "script.h"
 
 void Start() {
     holamundo.CreateQuad(30,30);
@@ -18,14 +13,35 @@ void Start() {
 }
 
 void Update() {
+    float moveSpeed = 200.0f * deltaTime();
+    
+    if (glfwGetKey(Window, GLFW_KEY_W) == GLFW_PRESS)
+    {
+        holamundo.Position.y += moveSpeed;
+    }
+    if (glfwGetKey(Window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        holamundo.Position.y -= moveSpeed;
+    }
+    if (glfwGetKey(Window, GLFW_KEY_A) == GLFW_PRESS)
+    {
+        holamundo.Position.x -= moveSpeed;
+    }
+    if (glfwGetKey(Window, GLFW_KEY_D) == GLFW_PRESS)
+    {
+        holamundo.Position.x += moveSpeed;
+    }
+    
     if (glfwGetKey(Window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
         holamundo2.Position += Vector2(1,0);
     }
+    
     colision = holamundo2.CheckCollision();
     if(colision.Bool)
     {
         holamundo2.Position.x -= 2;
     }
-    std::cout << deltaTime() << std::endl;
+    
+    std::cout << "Posición holamundo: X=" << holamundo.Position.x << ", Y=" << holamundo.Position.y << std::endl;
 }

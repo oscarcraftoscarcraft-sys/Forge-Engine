@@ -115,8 +115,8 @@ class AnvilObject {
 
         //  AABB de "este" objeto (usamos el centro)
         float anguloRad = this->Rotation.z * (M_PI / 180.0f);
-        float c = std::abs(std::cos(anguloRad));
-        float s = std::abs(std::sin(anguloRad));
+        float c = std::abs(cos(anguloRad));
+        float s = std::abs(sin(anguloRad));
     
         // El tamaño envolvente
         float thisW_env = (this->Width * c) + (this->Height * s);
@@ -128,14 +128,14 @@ class AnvilObject {
         float thisMinY = this->Position.y - (thisH_env / 2.0f);
         float thisMaxY = this->Position.y + (thisH_env / 2.0f);
 
-        for (int i = 0; i < objetosReferenciados.size(); i++) {
+        for (size_t i = 0; i < objetosReferenciados.size(); i++) {
             AnvilObject* otro = objetosReferenciados[i];
 
             if (otro != this) {
                 // AABB del "otro" objeto
                 float angRadOtro = otro->Rotation.z * (M_PI / 180.0f);
-                float cO = std::abs(std::cos(angRadOtro));
-                float sO = std::abs(std::sin(angRadOtro));
+                float cO = std::abs(cos(angRadOtro));
+                float sO = std::abs(sin(angRadOtro));
             
                 // Calculamos los bordes de "otro" desde su centro
                 float otroW_env = (otro->Width * cO) + (otro->Height * sO);
@@ -163,7 +163,7 @@ class AnvilObject {
 
 
 
-float deltaTime()
+inline float deltaTime()
 {
     return dontAskWhy;
 }
@@ -171,7 +171,7 @@ float deltaTime()
 //comandos internos para pasarnos parametros
 //no se ni yo lo que hace
 
-std::vector<std::vector<float>>& InternalPassVerticesList() {
+inline std::vector<std::vector<float>>& InternalPassVerticesList() {
     return cosasARenderizar;
 }
 
@@ -180,7 +180,7 @@ inline std::vector<AnvilObject*>& InternalPassReferenceObjects() {
 }
 
 //delta time oculto para pasar desde el motor
-void InternalPassDontAsk(float deltaaa)
+inline void InternalPassDontAsk(float deltaaa)
 {
     dontAskWhy = deltaaa;
 };

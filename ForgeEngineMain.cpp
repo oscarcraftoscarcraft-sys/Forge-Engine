@@ -1,10 +1,15 @@
-#include <GL/glew.h>    // ¡Siempre antes de GLFW!
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <math.h>
 #include "Anvil.h"
-#include "script.cpp"
+#include "script.h"
 #include <vector>
+
+AnvilObject holamundo;
+AnvilObject holamundo2;
+GLFWwindow* Window;
+Collision2D colision;
 
 void error_callback(int error, const char* description) {
     std::cerr << "Error de GLFW (" << error << "): " << description << std::endl;
@@ -140,7 +145,7 @@ int main() {
         //ademas (pendiente por corregir) si los objetos y los vertices estan alineados (en esta version suponemos que si)
         //aplicamos estas propiedades al shader de los objetos en la lista y dibujamos
         //y esto se vuelve a repetir con todos los objetos en las listas creados
-        for(int i = 0; i < lista.size(); i++) {
+        for(size_t i = 0; i < lista.size(); i++) {
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferSubData(GL_ARRAY_BUFFER, 0, lista[i].size() * sizeof(float), lista[i].data());
             matrizTraslacion[12] = objetosLista[i]->Position.x / 100.0f;
