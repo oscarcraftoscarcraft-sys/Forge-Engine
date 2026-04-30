@@ -106,12 +106,14 @@ if(WIN32)
         )
     endif()
 
+
     # Copiar shaders al directorio del ejecutable
     add_custom_command(TARGET Forge2Engine POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_SOURCE_DIR}/SHADERS
             $<TARGET_FILE_DIR:Forge2Engine>/SHADERS
     )
+
 
     # Copiar ejecutable como .bin
     add_custom_command(TARGET Forge2Engine POST_BUILD

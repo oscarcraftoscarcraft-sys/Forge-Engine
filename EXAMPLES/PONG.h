@@ -38,13 +38,7 @@ void Start() {
 }
 
 void Update() {
-    //Paleta 2 (derecha) - controles I/K
-    if (glfwGetKey(Window, GLFW_KEY_I) == GLFW_PRESS && Pala2.Position.y < 80.0f) {
-        Pala2.Position.y += 150.0f * deltaTime();
-    }
-    if (glfwGetKey(Window, GLFW_KEY_K) == GLFW_PRESS && Pala2.Position.y > -80.0f) {
-        Pala2.Position.y -= 150.0f * deltaTime();
-    }
+    
     std::cout << "Posicion de la pelota: (" << Pelota.Position.x << ", " << Pelota.Position.y << ")" << std::endl;
     if (glfwGetKey(Window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(Window, GLFW_KEY_W) == GLFW_PRESS && Pala.Position.y < 80.0f) {
         Pala.Position.y += 150.0f * deltaTime();
@@ -77,5 +71,11 @@ void Update() {
         Pelota.Position = Vector2 (0.0f, 0.0f);
     }
 
-    
+    //Paleta 2 (derecha) - controles I/K
+    if (glfwGetKey(Window, GLFW_KEY_I) == GLFW_PRESS && Pala2.Position.y < 80.0f) {
+        Pala2.Position.y += 150.0f * deltaTime();
+    }
+    if (glfwGetKey(Window, GLFW_KEY_K) == GLFW_PRESS && Pala2.Position.y > -80.0f) {
+        Pala2.Position.y -= 150.0f * deltaTime();
+    }
 }
