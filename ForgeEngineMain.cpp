@@ -78,6 +78,8 @@ int main() {
         std::cerr << "Error cargando shaders desde archivos" << std::endl;
         glfwTerminate();
         return -1;
+    } else {
+        std::cerr << "Los shaders se han cargado correctamente" << std::endl;
     }
 
     const char* vertexShaderSource = vertexSource.c_str();
