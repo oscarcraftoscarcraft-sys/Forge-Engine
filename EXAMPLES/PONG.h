@@ -17,9 +17,11 @@
 //Inicializamos los objetos y las variables globales que vamos a usar en el script
 //No se preocupen por esto, es solo para que el motor pueda acceder a estas variables y objetos desde el script
 AnvilObject Pala;
+AnvilObject Pala2;
 AnvilObject Pelota;
 GLFWwindow* Window;
 Collision2D colision1;
+Collision2D colision2;
 
 //=======================Funciones del script========================
 float speedPelota = 100.0f;
@@ -28,13 +30,21 @@ float mulYPelota = 1.0f;
 
 void Start() {
     Pala.CreateQuad(2, 20);
+    Pala2.CreateQuad(2, 20);
     Pelota.CreateQuad(1,1);
     Pala.Position = Vector2(-100.0f, 0.0f);
+    Pala2.Position = Vector2(100.0f, 0.0f);
     Window = glfwGetCurrentContext();
 }
 
 void Update() {
-    
+    //Paleta 2 (derecha) - controles I/K
+    if (glfwGetKey(Window, GLFW_KEY_I) == GLFW_PRESS && Pala2.Position.y < 80.0f) {
+        Pala2.Position.y += 150.0f * deltaTime();
+    }
+    if (glfwGetKey(Window, GLFW_KEY_K) == GLFW_PRESS && Pala2.Position.y > -80.0f) {
+        Pala2.Position.y -= 150.0f * deltaTime();
+    }
     std::cout << "Posicion de la pelota: (" << Pelota.Position.x << ", " << Pelota.Position.y << ")" << std::endl;
     if (glfwGetKey(Window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(Window, GLFW_KEY_W) == GLFW_PRESS && Pala.Position.y < 80.0f) {
         Pala.Position.y += 150.0f * deltaTime();
