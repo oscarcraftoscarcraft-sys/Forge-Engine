@@ -6,6 +6,9 @@
 #include "script.h"
 #include <vector>
 
+
+//======================USAR NINJA EN CMAKE========================
+
 std::vector<std::vector<float>> cosasARenderizar;
 std::vector<AnvilObject*> objetosReferenciados;
 //delta time oculto para pasar desde el motor
@@ -30,7 +33,7 @@ int main() {
 
     // Crear la ventana
     
-    GLFWwindow* window = glfwCreateWindow(1200, 800, "Mi Primera Ventana OpenGL", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(1200, 800, "Ventana de ForgeEngine", nullptr, nullptr);
     if (!window) {
         std::cout << "Error: No se pudo crear la ventana GLFW" << std::endl;
         glfwTerminate();
