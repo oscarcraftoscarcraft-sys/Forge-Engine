@@ -6,10 +6,10 @@
 #include "script.h"
 #include <vector>
 
-std::vector<std::vector<float>> cosasARenderizar;
-std::vector<AnvilObject*> objetosReferenciados;
-//delta time oculto para pasar desde el motor
-float dontAskWhy;
+AnvilObject holamundo;
+AnvilObject holamundo2;
+GLFWwindow* Window;
+Collision2D colision;
 
 void error_callback(int error, const char* description) {
     std::cerr << "Error de GLFW (" << error << "): " << description << std::endl;
@@ -41,7 +41,7 @@ int main() {
     glfwMakeContextCurrent(window);
 
     // ==================== Inicializar GLEW ====================
-    glewExperimental = GL_TRUE;
+    //glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) {
         std::cout << "Error: No se pudo inicializar GLEW" << std::endl;
         glfwTerminate();
@@ -136,7 +136,6 @@ int main() {
     int escalaID = glGetUniformLocation(shaderProgram, "escala");
     float ultimoframe;
     glUniformMatrix4fv(idUniform, 1, GL_FALSE, matrizProye);
-    float primerFrame = 0.0f;
     Start();
     // ==================== Bucle principal ====================
     while (!glfwWindowShouldClose(window)) {
@@ -166,7 +165,7 @@ int main() {
             glDrawArrays(GL_TRIANGLE_STRIP, 0, lista[i].size()/6);
         }   
 
-        primerFrame = glfwGetTime();
+        float primerFrame = glfwGetTime();
         float deltatime = primerFrame - ultimoframe;
         ultimoframe = primerFrame;
         InternalPassDontAsk(deltatime);
