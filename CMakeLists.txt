@@ -36,5 +36,6 @@ target_link_libraries(Forge2Engine PRIVATE
     OpenGL::GL
     GLEW::GLEW
     glfw
-
+    dl
+    pthread
 )
