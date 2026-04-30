@@ -63,6 +63,16 @@ struct Vector3 {
     }
 };
 
+struct Color {
+    float r = 1.0f;
+    float g = 1.0f;
+    float b = 1.0f;
+    Color(float r = 0, float g = 0, float b = 0) : r(r), g(g), b(b) {}
+    Color operator+(const Color& other) {
+        return Color(r + other.r, g + other.g, b + other.b);
+    }
+};
+
 class AnvilObject;
 
 class Collision2D {
@@ -70,6 +80,7 @@ class Collision2D {
     bool Bool;
     AnvilObject* Object;
 };
+
 
 class AnvilObject {
     //tiene sus propiedades que luego el motor las procesa y las manda a la matriz del shader
@@ -79,6 +90,7 @@ class AnvilObject {
         int Width, Height;
         Vector2 Position;
         Vector3 Rotation;
+        Color color;
         Vector2 Scale = Vector2(100.0f, 100.0f);
     //agrega el objeto creado a una lista para luego ser recorrido y aplicar sus propiedad al shader
     AnvilObject() {

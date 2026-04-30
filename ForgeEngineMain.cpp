@@ -62,7 +62,6 @@ int main() {
         "uniform mat4 rotacion;\n"
         "uniform mat4 translacion;\n"
         "uniform mat4 escala;\n"
-        "out vec3 color2;\n"
         "void main()\n"
         "{\n"
         "   gl_Position = proyeccion * translacion * rotacion * escala* vec4(aPos, 1.0);\n"
@@ -75,7 +74,7 @@ int main() {
     //recibe el color del vertex y lo aplica
     const char *fragmentShaderOrigen = "#version 330 core\n"
         "out vec4 fragColor;\n"
-        "in vec3 color2;\n"
+        "uniform vec3 color2;\n"
         "void main()\n"
         "{\n"
         "   fragColor = vec4(color2, 1.0f);\n"
@@ -131,12 +130,16 @@ int main() {
         0.0f, 0.0f, 1.0f, 0.0f, 
         0.0f, 0.0f, 0.0f, 1.0f
     };
+    float colorfloat[] = {
+        1.0f, 1.0f, 1.0f
+    };
     auto& lista = InternalPassVerticesList();
     auto& objetosLista = InternalPassReferenceObjects();
     int idUniform = glGetUniformLocation(shaderProgram, "proyeccion");
     int rotacionID = glGetUniformLocation(shaderProgram, "rotacion");
     int translacionID = glGetUniformLocation(shaderProgram, "translacion");
     int escalaID = glGetUniformLocation(shaderProgram, "escala");
+    int colorID = glGetUniformLocation(shaderProgram, "color2");
     float ultimoframe;
     glUniformMatrix4fv(idUniform, 1, GL_FALSE, matrizProye);
     float primerFrame = 0.0f;
@@ -163,9 +166,13 @@ int main() {
             matrizRotacion[5] = cos((objetosLista[i]->Rotation.z) * (M_PI / 180));
             matrizEscala[0] = objetosLista[i]->Scale.x / 100;
             matrizEscala[5] = objetosLista[i]->Scale.y / 100;
+            colorfloat[0] = objetosLista[i]->color.r;
+            colorfloat[1] = objetosLista[i]->color.g;
+            colorfloat[2] = objetosLista[i]->color.b;
             glUniformMatrix4fv(rotacionID, 1, GL_FALSE, matrizRotacion);
             glUniformMatrix4fv(translacionID, 1, GL_FALSE, matrizTraslacion);
             glUniformMatrix4fv(escalaID, 1, GL_FALSE, matrizEscala);
+            glUniform3fv(colorID, 1, colorfloat);
             glDrawArrays(GL_TRIANGLE_STRIP, 0, lista[i].size()/6);
         }   
 

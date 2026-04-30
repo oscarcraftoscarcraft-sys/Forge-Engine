@@ -6,6 +6,8 @@
 
 AnvilObject Template;
 
-void Start() {}
+void Start() {
+    Template.CreateQuad(20, 20);
+}
 
 void Update() {}
