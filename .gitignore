@@ -1,0 +1,13 @@
+
+.ninja_deps
+.ninja_log
+.vscode
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+main
+Forge2EngineSource
+*.o
+*.a
+*.exe

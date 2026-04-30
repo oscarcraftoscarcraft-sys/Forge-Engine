@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include <string>
 
 class AnvilObject;
 
@@ -63,6 +64,18 @@ struct Vector3 {
     }
 };
 
+
+
+struct Color {
+    float r = 0.0f;
+    float g = 0.0f;
+    float b = 0.0f;
+    Color(float r = 0, float g = 0, float b = 0) : r(r), g(g), b(b) {}
+    Color operator+(const Color& other) {
+        return Color(r + other.r, g + other.g, b + other.b);
+    }
+};
+
 class AnvilObject;
 
 class Collision2D {
@@ -70,6 +83,7 @@ class Collision2D {
     bool Bool;
     AnvilObject* Object;
 };
+
 
 class AnvilObject {
     //tiene sus propiedades que luego el motor las procesa y las manda a la matriz del shader
@@ -79,9 +93,11 @@ class AnvilObject {
         int Width, Height;
         Vector2 Position;
         Vector3 Rotation;
+        Color color;
         Vector2 Scale = Vector2(100.0f, 100.0f);
     //agrega el objeto creado a una lista para luego ser recorrido y aplicar sus propiedad al shader
     AnvilObject() {
+        this->color = Color(1.0f, 1.0f, 1.0f);
         objetosReferenciados.push_back(this);
     }
     //crea un cuadrado con los parametros ancho y alto
@@ -185,5 +201,12 @@ inline void InternalPassDontAsk(float deltaaa)
     dontAskWhy = deltaaa;
 };
 
+inline void SetWindowTitle(const char* title) {
+    GLFWwindow* window = glfwGetCurrentContext();
+    if (window) {
+        glfwSetWindowTitle(window, title);
+    }
+}
+//h
 
 
