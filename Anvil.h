@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include <string>
 
 class AnvilObject;
 
@@ -62,6 +63,8 @@ struct Vector3 {
         return Vector3(x + other.x, y + other.y, z + other.z);
     }
 };
+
+
 
 struct Color {
     float r = 0.0f;
@@ -202,6 +205,13 @@ inline void InternalPassDontAsk(float deltaaa)
 {
     dontAskWhy = deltaaa;
 };
+
+inline void SetWindowTitle(const char* title) {
+    GLFWwindow* window = glfwGetCurrentContext();
+    if (window) {
+        glfwSetWindowTitle(window, title);
+    }
+}
 
 
 

@@ -1,9 +1,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include "Anvil.h"
-#include "script.h"
+#include "game.h"
 #include <vector>
 
 
@@ -13,6 +13,7 @@ std::vector<std::vector<float>> cosasARenderizar;
 std::vector<AnvilObject*> objetosReferenciados;
 //delta time oculto para pasar desde el motor
 float dontAskWhy;
+
 
 void error_callback(int error, const char* description) {
     std::cerr << "Error de GLFW (" << error << "): " << description << std::endl;
@@ -33,7 +34,7 @@ int main() {
 
     // Crear la ventana
     
-    GLFWwindow* window = glfwCreateWindow(1200, 800, "Ventana de ForgeEngine", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(1200, 650, "Ventana de ForgeEngine", nullptr, nullptr);
     if (!window) {
         std::cout << "Error: No se pudo crear la ventana GLFW" << std::endl;
         glfwTerminate();
@@ -144,6 +145,7 @@ int main() {
     float ultimoframe;
     glUniformMatrix4fv(idUniform, 1, GL_FALSE, matrizProye);
     float primerFrame = 0.0f;
+    
     Start();
     // ==================== Bucle principal ====================
     while (!glfwWindowShouldClose(window)) {
@@ -181,6 +183,7 @@ int main() {
         float deltatime = primerFrame - ultimoframe;
         ultimoframe = primerFrame;
         InternalPassDontAsk(deltatime);
+        
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

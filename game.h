@@ -1,9 +1,9 @@
 #include <iostream>
-#include <GL/glew.h> 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Anvil.h"
 
-//====================IMPORTANTE=====================   
+//====================IMPORTANTE=====================
 //Si vas a usar este script renombrar a "script.h" y agregarlo al proyecto
 //El motor lo va a compilar y ejecutar automaticamente
 
@@ -28,6 +28,13 @@ float speedPelota = 100.0f;
 float mulXPelota = 1.0f;
 float mulYPelota = 1.0f;
 
+// Variables para la IA de la paleta 2
+float iaSpeed = 120.0f;
+float iaErrorChance = 0.15f;
+float iaErrorTimer = 0.0f;
+bool iaMakingError = false;
+float iaErrorDirection = 1.0f;
+
 void Start() {
     Pala.CreateQuad(2, 20);
     Pala2.CreateQuad(2, 20);
@@ -35,15 +42,37 @@ void Start() {
     Pala.Position = Vector2(-100.0f, 0.0f);
     Pala2.Position = Vector2(100.0f, 0.0f);
     Window = glfwGetCurrentContext();
+    SetWindowTitle("PONG 1.0");
 }
 
 void Update() {
-    //Paleta 2 (derecha) - controles I/K
-    if (glfwGetKey(Window, GLFW_KEY_I) == GLFW_PRESS && Pala2.Position.y < 80.0f) {
-        Pala2.Position.y += 150.0f * deltaTime();
+    if (iaMakingError) {
+        iaErrorTimer -= deltaTime();
+        if (iaErrorTimer <= 0.0f) {
+            iaMakingError = false;
+        }
     }
-    if (glfwGetKey(Window, GLFW_KEY_K) == GLFW_PRESS && Pala2.Position.y > -80.0f) {
-        Pala2.Position.y -= 150.0f * deltaTime();
+    
+    if (!iaMakingError && (rand() % 100) < (iaErrorChance * 100)) {
+        iaMakingError = true;
+        iaErrorTimer = 0.3f + (rand() % 100) / 200.0f;
+        iaErrorDirection = (rand() % 2) == 0 ? 1.0f : -1.0f;
+    }
+    
+    float targetY = Pelota.Position.y;
+    float currentY = Pala2.Position.y;
+    float diff = targetY - currentY;
+    
+    if (iaMakingError) {
+        diff *= iaErrorDirection * 0.5f;
+    }
+    
+    if (abs(diff) > 5.0f) {
+        if (diff > 0 && Pala2.Position.y < 80.0f) {
+            Pala2.Position.y += iaSpeed * deltaTime();
+        } else if (diff < 0 && Pala2.Position.y > -80.0f) {
+            Pala2.Position.y -= iaSpeed * deltaTime();
+        }
     }
     std::cout << "Posicion de la pelota: (" << Pelota.Position.x << ", " << Pelota.Position.y << ")" << std::endl;
     if (glfwGetKey(Window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(Window, GLFW_KEY_W) == GLFW_PRESS && Pala.Position.y < 80.0f) {
@@ -77,5 +106,5 @@ void Update() {
         Pelota.Position = Vector2 (0.0f, 0.0f);
     }
 
-    
+
 }
