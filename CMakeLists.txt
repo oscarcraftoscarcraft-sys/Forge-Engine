@@ -65,7 +65,6 @@ set_target_properties(GLEW::GLEW PROPERTIES
 # -----------------------------
 add_executable(Forge2Engine
     ForgeEngineMain.cpp
-    game.cpp
     version.rc
 )
 
