@@ -70,6 +70,8 @@ void Start() {
     Personaje.color = Color(1.0f, 100.0f, 0.0f);
     Suelo.color = Color(5.0f, 0.0f, 0.0f);
     
+    // Cambiar color de fondo (R, G, B) - Valores entre 0.0 y 1.0
+    SetBackgroundColor(0.1f, 0.1f, 0.2f); // Azul oscuro
 }
 
 void Update() {

@@ -219,6 +219,16 @@ inline void SetWindowTitle(const char* title) {
         glfwSetWindowTitle(window, title);
     }
 }
+
+inline Color backgroundColor = Color(0.0f, 0.0f, 0.0f);
+
+inline void SetBackgroundColor(float r, float g, float b) {
+    backgroundColor = Color(r, g, b);
+}
+
+inline Color GetBackgroundColor() {
+    return backgroundColor;
+}
 //h
 
 
