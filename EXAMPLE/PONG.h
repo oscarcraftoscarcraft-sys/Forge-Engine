@@ -16,6 +16,7 @@
 //=======================Definicion de objetos globales========================
 //Inicializamos los objetos y las variables globales que vamos a usar en el script
 //No se preocupen por esto, es solo para que el motor pueda acceder a estas variables y objetos desde el script
+
 AnvilObject Pala;
 AnvilObject Pala2;
 AnvilObject Pelota;
@@ -34,7 +35,13 @@ void Start() {
     Pelota.CreateQuad(1,1);
     Pala.Position = Vector2(-100.0f, 0.0f);
     Pala2.Position = Vector2(100.0f, 0.0f);
+    
     Window = glfwGetCurrentContext();
+
+    //COLORS
+    Pala.color = Color(1.0f, 100.0f, 0.0f);
+    Pala2.color = Color(5.0f, 0.0f, 0.0f);
+    Pelota.color = Color(104.0f, 360.0f, 0.0f);
 }
 
 void Update() {

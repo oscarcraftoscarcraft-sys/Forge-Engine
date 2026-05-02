@@ -65,12 +65,14 @@ struct Vector3 {
 };
 
 
-
+/**
+ * Define un color para un objeto
+ */
 struct Color {
     float r = 0.0f;
     float g = 0.0f;
     float b = 0.0f;
-    Color(float r = 0, float g = 0, float b = 0) : r(r), g(g), b(b) {}
+    Color(float r = 0, float g = 0, float b = 0) : r(r), g(g), b(b) {} // Constructor
     Color operator+(const Color& other) {
         return Color(r + other.r, g + other.g, b + other.b);
     }
@@ -93,7 +95,7 @@ class AnvilObject {
         int Width, Height;
         Vector2 Position;
         Vector3 Rotation;
-        Color color;
+        Color color; // Propiedad para declarar el color del objeto
         Vector2 Scale = Vector2(100.0f, 100.0f);
     //agrega el objeto creado a una lista para luego ser recorrido y aplicar sus propiedad al shader
     AnvilObject() {
@@ -104,6 +106,16 @@ class AnvilObject {
     //hace una media entre el alto y el ancho para que la forma este centrada
     //luego esto se envia a una lista donde el motor lo podra meter en el buffer central, recorre toda la lista y lo renderiza
     // (solo hay un buffer, no pregunten)
+    /*
+     * @brief Crea un cuadrado con los parametros ancho y alto
+     * @param width Ancho del cuadrado
+     * @param height Alto del cuadrado
+     ```
+     * @example
+     * AnvilObject obj;
+     * obj.CreateQuad(100, 100);
+     ```
+     */
     void CreateQuad(int width, int height)
     {
         float medidaAncho = width / 50.0f; 
@@ -206,6 +218,16 @@ inline void SetWindowTitle(const char* title) {
     if (window) {
         glfwSetWindowTitle(window, title);
     }
+}
+
+inline Color backgroundColor = Color(0.0f, 0.0f, 0.0f);
+
+inline void SetBackgroundColor(float r, float g, float b) {
+    backgroundColor = Color(r, g, b);
+}
+
+inline Color GetBackgroundColor() {
+    return backgroundColor;
 }
 //h
 

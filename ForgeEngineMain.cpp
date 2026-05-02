@@ -6,22 +6,35 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+// #include "EXAMPLE/PONG.h"
+#include "EXAMPLE/SIMPLE.h"
+// #include "game.h"
 
 void Start();
 void Update();
 
 //======================USAR NINJA EN CMAKE========================
 
-std::vector<std::vector<float>> cosasARenderizar;
-std::vector<AnvilObject*> objetosReferenciados;
+// std::vector<std::vector<float>> cosasARenderizar;
+// std::vector<AnvilObject*> objetosReferenciados;
 //delta time oculto para pasar desde el motor
-float dontAskWhy;
+// float dontAskWhy;
 
 void error_callback(int error, const char* description) {
     std::cerr << "Error de GLFW (" << error << "): " << description << std::endl;
 }
 
 //=====================LEER ARCHIVOS PARA SHADERS==================
+
+/**
+ * Lee los archivos necesarios para el sistema de shaders
+ * @param path Direccion de los ficheros de los shaders
+ * ``` c++
+ * //Ejemplo de un buen uso
+ * std::string vertexSource = loadFile("./SHADERS/vertex.glsl");
+*  std::string fragmentSource = loadFile("./SHADERS/fragment.glsl");
+ * ```
+ */
 std::string loadFile(const char* path) {
     std::ifstream file(path);
     std::stringstream buffer;
@@ -148,13 +161,14 @@ int main() {
     int rotacionID = glGetUniformLocation(shaderProgram, "rotacion");
     int translacionID = glGetUniformLocation(shaderProgram, "translacion");
     int escalaID = glGetUniformLocation(shaderProgram, "escala");
-    int colorID = glGetUniformLocation(shaderProgram, "color");
+    int objectColorID = glGetUniformLocation(shaderProgram, "objectColor");
     float ultimoframe;
     glUniformMatrix4fv(idUniform, 1, GL_FALSE, matrizProye);
 
     Start();
     // ==================== Bucle principal ====================
     while (!glfwWindowShouldClose(window)) {
+        glClearColor(GetBackgroundColor().r, GetBackgroundColor().g, GetBackgroundColor().b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         Update();
         //bucle principal, las listas que definimos en Anvil.h las recorre agarra los vertices y los renderiza
@@ -181,7 +195,7 @@ int main() {
             glUniformMatrix4fv(rotacionID, 1, GL_FALSE, matrizRotacion);
             glUniformMatrix4fv(translacionID, 1, GL_FALSE, matrizTraslacion);
             glUniformMatrix4fv(escalaID, 1, GL_FALSE, matrizEscala);
-            glUniform3fv(colorID, 1, colorfloat);
+            glUniform3fv(objectColorID, 1, colorfloat);
             glDrawArrays(GL_TRIANGLE_STRIP, 0, lista[i].size()/6);
         }   
 
