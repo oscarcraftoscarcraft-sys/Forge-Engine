@@ -7,7 +7,8 @@
 #include <fstream>
 #include <sstream>
 // #include "EXAMPLE/PONG.h"
-#include "game.h"
+#include "EXAMPLE/SIMPLE.h"
+// #include "game.h"
 
 void Start();
 void Update();
@@ -167,6 +168,7 @@ int main() {
     Start();
     // ==================== Bucle principal ====================
     while (!glfwWindowShouldClose(window)) {
+        glClearColor(GetBackgroundColor().r, GetBackgroundColor().g, GetBackgroundColor().b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         Update();
         //bucle principal, las listas que definimos en Anvil.h las recorre agarra los vertices y los renderiza
