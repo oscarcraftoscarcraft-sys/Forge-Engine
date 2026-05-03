@@ -99,9 +99,13 @@ void Update() {
     if (colision1.Bool)
     {
         mulXPelota *= -1;
+<<<<<<< HEAD
+    }
+=======
         
     }
 
+>>>>>>> ecd0c78b777cf4188f69316b5ee1d911b22d975d
     if (Pelota.Position.x < -150.0f)
     {
         mulXPelota = 1.0f;
