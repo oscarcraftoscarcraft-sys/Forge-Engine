@@ -24,24 +24,27 @@ GLFWwindow* Window;
 Collision2D colision1;
 Collision2D colision2;
 
+
+
 //=======================Funciones del script========================
 float speedPelota = 100.0f;
 float mulXPelota = 1.0f;
 float mulYPelota = 1.0f;
 
 void Start() {
-    Pala.CreateQuad(5, 20);
-    Pala2.CreateQuad(5, 20);
+    Pala.CreateQuad(2, 20);
+    Pala2.CreateQuad(2, 20);
     Pelota.CreateQuad(1,1);
     Pala.Position = Vector2(-100.0f, 0.0f);
     Pala2.Position = Vector2(100.0f, 0.0f);
     
+    
     Window = glfwGetCurrentContext();
 
     //COLORS
-    // Pala.color = Color(1.0f, 100.0f, 0.0f);
-    // Pala2.color = Color(5.0f, 0.0f, 0.0f);
-    // Pelota.color = Color(104.0f, 360.0f, 0.0f);
+    Pala.color = Color(1.0f, 1.0f, 0.0f);
+    Pala2.color = Color(1.0f, 0.0f, 0.0f);
+    Pelota.color = Color(1.0f, 1.0f, 0.0f);
 
     //Añadir una textura al objeto
 }
@@ -66,6 +69,7 @@ void Update() {
     colision1 = Pelota.CheckCollision();
     if (colision1.Bool)
     {
+        colision1.Object->color = Color(0.0f, 1.0f, 0.0f);
         mulXPelota *= -1;
     }
     Pelota.Position += Vector2((speedPelota * mulXPelota) * deltaTime(), (speedPelota * mulYPelota) * deltaTime());
