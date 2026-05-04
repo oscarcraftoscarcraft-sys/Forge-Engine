@@ -32,16 +32,19 @@ float mulYPelota = 1.0f;
 void Start() {
     Pala.CreateQuad(2, 20);
     Pala2.CreateQuad(2, 20);
-    Pelota.CreateQuad(1,1);
+    Pelota.CreateCircle(10);
     Pala.Position = Vector2(-100.0f, 0.0f);
     Pala2.Position = Vector2(100.0f, 0.0f);
     
     Window = glfwGetCurrentContext();
 
     //COLORS
-    Pala.color = Color(1.0f, 100.0f, 0.0f);
-    Pala2.color = Color(5.0f, 0.0f, 0.0f);
-    Pelota.color = Color(104.0f, 360.0f, 0.0f);
+    // Pala.color = Color(1.0f, 100.0f, 0.0f);
+    // Pala2.color = Color(5.0f, 0.0f, 0.0f);
+    // Pelota.color = Color(104.0f, 360.0f, 0.0f);
+
+    //Añadir una textura al objeto
+    Pelota.textureID = LoadTexture("./EscudoColor.png");
 }
 
 void Update() {
